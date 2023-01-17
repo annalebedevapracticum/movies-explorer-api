@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 const CustomError = require('../helpers/CustomError');
+const { devSecretKey } = require('../helpers/utils');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
+const secretKey = NODE_ENV === 'production' ? JWT_SECRET : devSecretKey;
 
 function generateToken(payload) {
   return jwt.sign(payload, secretKey, { expiresIn: '7d' });
