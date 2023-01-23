@@ -42,9 +42,9 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  const { movieId } = req.params;
+  const { _id } = req.params;
 
-  Movie.findById(movieId)
+  Movie.findById(_id)
     .orFail(() => {
       throw new CustomError('Фильм с указанным _id не найден', 404);
     })
