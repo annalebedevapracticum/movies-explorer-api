@@ -23,6 +23,7 @@ process.on('uncaughtException', (err, origin) => {
 
 app.use(cors());
 app.use(helmet());
+app.use(requestLogger);
 app.use(limiter);
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -35,7 +36,6 @@ mongoose.connect(dataBaseUrl, {
   console.log('Connected to MongoDB!!!');
 });
 
-app.use(requestLogger);
 app.use(routes);
 app.use(errorLogger);
 
