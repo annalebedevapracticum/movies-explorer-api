@@ -33,11 +33,13 @@ module.exports.createUser = (req, res, next) => {
       name, email, password: hash,
     })
       .then((user) => {
-        res.status(201).send({
-          _id: user._id,
-          email: user.email,
-          name,
-        });
+        const token = generateToken({ _id: user._id });
+        res
+          .cookie('jwt', token, {
+            maxAge: 3600000,
+            httpOnly: true,
+            sameSite: true,
+          }).send({ token });
       })
       .catch((err) => {
         if (err.code === 11000) {
